@@ -1,12 +1,17 @@
 CC = gcc
 CFLAGS = -Wall
 
-OUTPUT = assembler
+ASSEMBLER_OUTPUT = assembler
+LOADER_OUTPUT = loader
 
-%.bin: %.asm assembler.c
-	$(CC) $(CFLAGS) assembler.c -o $(OUTPUT)
-	./$(OUTPUT) $< $@
+assembler.bin: fibonacci.asm assembler.c
+	$(CC) $(CFLAGS) assembler.c -o $(ASSEMBLER_OUTPUT)
+	./$(ASSEMBLER_OUTPUT) fibonacci.asm assembler.bin
+
+loader: loader.c
+	$(CC) $(CFLAGS) loader.c -o $(LOADER_OUTPUT)
+	./$(LOADER_OUTPUT)
 
 clean:
-	rm -f $(OUTPUT) *.bin
+	rm -f $(ASSEMBLER_OUTPUT) $(LOADER_OUTPUT) *.bin
 
